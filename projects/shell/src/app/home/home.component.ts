@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     this.plugins = await this.lookupService.lookup();
   }
 
-  b(plugin: PluginOptions): void {
+  add(plugin: PluginOptions): void {
     this.graphs.push(plugin);
   }
 
