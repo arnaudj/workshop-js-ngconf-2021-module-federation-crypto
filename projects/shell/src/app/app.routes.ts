@@ -15,7 +15,7 @@ export const APP_ROUTES: Routes = [
     path: 'cryptos',
     loadChildren: () =>
       loadRemoteModule({
-        remoteEntry: 'http://localhost:3000/remoteEntry.js',
+        //remoteEntry: 'http://localhost:3000/remoteEntry.js',
         remoteName: 'mfe1',
         exposedModule: './Module',
       }).then((m) => m.CryptosModule),
