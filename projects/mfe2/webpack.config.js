@@ -1,4 +1,6 @@
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const mf = require("@angular-architects/module-federation/webpack");
+const share = mf.share;
 
 module.exports = {
   output: {
@@ -10,13 +12,12 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      library: { type: "module" },
-
       // For remotes (please adjust)
       name: "mfe2",
       filename: "remoteEntry.js",
       exposes: {
-        "./Chart1": "./projects/mfe2/src/app/chart1.component.ts",
+        "./Chart1": "./projects/mfe2/src/app/chart1/chart1.component.ts",
+        "./Chart2": "./projects/mfe2/src/app/chart2/chart2.component.ts",
       },
       shared: share({
         "@angular/core": {
@@ -39,10 +40,7 @@ module.exports = {
           strictVersion: true,
           requiredVersion: "auto",
         },
-
-        ...sharedMappings.getDescriptors(),
       }),
     }),
-    sharedMappings.getPlugin(),
   ],
 };
