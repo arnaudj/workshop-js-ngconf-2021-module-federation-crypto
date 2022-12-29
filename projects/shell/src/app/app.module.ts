@@ -7,6 +7,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { PluginProxyComponent } from './plugins/plugin-proxy.component';
 import { AppComponent } from './app.component';
 import { APP_ROUTES } from './app.routes';
 import { HomeComponent } from './home/home.component';
@@ -23,7 +24,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     MatButtonModule,
     MatIconModule,
   ],
-  declarations: [AppComponent, HomeComponent, NotFoundComponent],
+  declarations: [AppComponent, HomeComponent, NotFoundComponent, PluginProxyComponent],
   providers: [],
   bootstrap: [AppComponent],
 })
