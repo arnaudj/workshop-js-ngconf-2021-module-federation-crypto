@@ -7,3 +7,7 @@ Due to limitations with npm, you must use yarn
 Look at package.json
 
 `"resolutions": { "webpack": "5.18.0" },`
+
+# Commands
+- `yarn start:shell`
+- `yarn start:mfe1`

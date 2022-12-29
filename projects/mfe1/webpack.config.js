@@ -4,53 +4,48 @@ const path = require("path");
 const share = mf.share;
 
 const sharedMappings = new mf.SharedMappings();
-sharedMappings.register(
-  path.join(__dirname, '../../tsconfig.json'),
-  [/* mapped paths to share */]);
+sharedMappings.register(path.join(__dirname, "../../tsconfig.json"), [
+  /* mapped paths to share */
+]);
 
+// prettier-ignore
 module.exports = {
   output: {
     uniqueName: "mfe1",
-    publicPath: "auto"
+    publicPath: "auto",
+    scriptType: 'text/javascript'
   },
   optimization: {
-    runtimeChunk: false
-  },   
+    runtimeChunk: false,
+  },
   resolve: {
     alias: {
       ...sharedMappings.getAliases(),
-    }
-  },
-  experiments: {
-    outputModule: true
+    },
   },
   plugins: [
     new ModuleFederationPlugin({
-        library: { type: "module" },
+      // For remotes (please adjust)
+      name: "mfe1",
+      filename: "remoteEntry.js",
+      exposes: {
+        "./Module": "./projects/mfe1/src/app/cryptos/cryptos.module.ts",
+      },
+      shared: share({
+        "@angular/core": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
+        "@angular/common": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
+        "@angular/common/http": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
+        "@angular/router": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
+        "@angular/material/core": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
+        "@angular/material/icon": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
+        "@angular/material/input": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
+        "@angular/material/card": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
+        "@angular/material/button": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
+        "@angular/material/sidenav": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
 
-        // For remotes (please adjust)
-        // name: "mfe1",
-        // filename: "remoteEntry.js",
-        // exposes: {
-        //     './Component': './projects/mfe1/src/app/app.component.ts',
-        // },        
-        
-        // For hosts (please adjust)
-        // remotes: {
-        //     "shell": "http://localhost:5000/remoteEntry.js",
-
-        // },
-
-        shared: share({
-          "@angular/core": { singleton: true, strictVersion: true, requiredVersion: 'auto' }, 
-          "@angular/common": { singleton: true, strictVersion: true, requiredVersion: 'auto' }, 
-          "@angular/common/http": { singleton: true, strictVersion: true, requiredVersion: 'auto' }, 
-          "@angular/router": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
-
-          ...sharedMappings.getDescriptors()
-        })
-        
+        ...sharedMappings.getDescriptors()
+      })
     }),
-    sharedMappings.getPlugin()
+    sharedMappings.getPlugin(),
   ],
 };
